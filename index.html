@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="gameCanvas"></canvas>
+      
+      <!-- UI Overlays -->
+      <div id="ui-layer">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+          <h1>專屬回憶跑酷 🎈</h1>
+          <p>準備好重溫我們的美好時光了嗎？</p>
+          
+          <div class="character-selection">
+            <h3>選擇你的角色</h3>
+            <div class="char-options">
+              <div class="char-card selected" data-char="boy">
+                <canvas id="char-canvas-boy" width="64" height="64"></canvas>
+                <span>男孩</span>
+              </div>
+              <div class="char-card" data-char="girl">
+                <canvas id="char-canvas-girl" width="64" height="64"></canvas>
+                <span>女孩</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="name-input-group">
+            <input type="text" id="player-name" placeholder="輸入你的暱稱" maxlength="10">
+          </div>
+
+          <button id="start-btn">開始旅程</button>
+        </div>
+
+        <!-- Level Transition Screen -->
+        <div id="level-screen" class="screen">
+          <h2 id="level-title">Level 1</h2>
+          <div class="photo-frame">
+            <div id="level-photo" class="photo-placeholder">📸</div>
+          </div>
+          <p id="level-message">那時的心情跟著煙火一起綻放</p>
+          <button id="next-level-btn">繼續前進</button>
+        </div>
+
+        <!-- Final Birthday Screen -->
+        <div id="final-screen" class="screen">
+          <h1>Happy Birthday! 🎂</h1>
+          <div class="cake-container">
+            <div id="cake">🎂</div>
+            <p id="blow-hint">狂點螢幕吹熄蠟燭！ (<span id="blow-progress">0</span>/20)</p>
+          </div>
+          <div id="final-message" class="hidden">
+            <p>親愛的，生日快樂！</p>
+            <p>謝謝你一直以來的陪伴，未來的日子也要一起走過無數風景。</p>
+            <p>🎁 提示：去看看你的床頭櫃吧！</p>
+          </div>
+        </div>
+
+        <!-- HUD -->
+        <div id="hud" class="hidden">
+          <div class="score">收集進度: <span id="score-val">0</span>/5</div>
+          <div class="level-indicator">Level <span id="current-level-val">1</span></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
