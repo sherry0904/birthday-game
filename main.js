@@ -19,88 +19,112 @@ const PALETTE = {
 
 const SPRITES = {
   boyFront: [
-    "....HHHH........",
-    "...HHHHHH.......",
-    "...HFFFFH.......",
-    "...CFFCFF.......",
-    "...HFFFFH.......",
-    "....SSSS........",
-    "...SSSSSS.......",
-    "...SS..SS.......",
-    "...LL..LL.......",
-    "...LL..LL.......",
-    "..LL....LL......",
-    "..BB....BB......"
+    "......HHHH......",
+    "....HHHHHHHH....",
+    "...HHHHHHHHHH...",
+    "..HHHHHHHHHHHH..",
+    "..HHHFFFFFFHHH..",
+    "..HHCFBCCBFCCHH..",
+    "..HHFFRFFRFFHH..",
+    "..HHFFFBBFFFHH..",
+    "...HHFFFFFFHH...",
+    "....FFFFFFFF....",
+    "....SSSSSSSS....",
+    "...SSSSSSSSSS...",
+    "..FSSSSSSSSSSF..",
+    "....LLLLLLLL....",
+    "....LL....LL....",
+    "...BBB....BBB..."
   ],
   boyRun1: [
-    "....HHHH........",
-    "...HHHHHH.......",
-    "...HFFFFH.......",
-    "...CFFCFF.......",
-    "...HFFFFH.......",
-    "....SSSS........",
-    "..SSSSSSS.......",
-    "..SS.SS.........",
-    "...LL.LL........",
-    "...LL.LL........",
-    "..LL..LL........",
-    ".BB....BB......."
+    "......HHHH......",
+    "....HHHHHHHH....",
+    "...HHHHHHHHHH...",
+    "..HHHHHHHHHHHH..",
+    "..HHHFFFFFFHHH..",
+    "..HHCFBCCBFCCHH..",
+    "..HHFFRFFRFFHH..",
+    "..HHFFFBBFFFHH..",
+    "...HHFFFFFFHH...",
+    "....FFFFFFFF....",
+    "....SSSSSSSS....",
+    "...SSSSSSSSSS...",
+    "..FSSSSSSSSSSF..",
+    "....LLLLLLLL....",
+    ".....LL...LL....",
+    "......BB...BB..."
   ],
   boyRun2: [
-    "....HHHH........",
-    "...HHHHHH.......",
-    "...HFFFFH.......",
-    "...CFFCFF.......",
-    "...HFFFFH.......",
-    "....SSSS........",
-    "...SSSSSS.......",
-    "....SSSS........",
-    ".....LL.........",
-    "....LLLL........",
-    "...LL..LL.......",
-    "..BB....B......."
+    "................",
+    "......HHHH......",
+    "....HHHHHHHH....",
+    "...HHHHHHHHHH...",
+    "..HHHHHHHHHHHH..",
+    "..HHHFFFFFFHHH..",
+    "..HHCFBCCBFCCHH..",
+    "..HHFFRFFRFFHH..",
+    "..HHFFFBBFFFHH..",
+    "...HHFFFFFFHH...",
+    "....FFFFFFFF....",
+    "....SSSSSSSS....",
+    "...SSSSSSSSSS...",
+    "..FSSSSSSSSSSF..",
+    "....LL...LL.....",
+    "...BB...BB......"
   ],
   girlFront: [
-    "....PPPP........",
-    "...PPPPPP.......",
-    "...PFFFFP.......",
-    "...PFFBFF.......",
-    "...PPPPPP.......",
-    "....OOOO........",
-    "...OOOOOO.......",
-    "...OO..OO.......",
-    "...LL..LL.......",
-    "...LL..LL.......",
-    "..LL....LL......",
-    "..BB....BB......"
+    "......PPPP......",
+    "....PPPPPPPP....",
+    "...PPPPPPPPPP...",
+    "..PPPPPPPPPPPP..",
+    "..PPPFFFFFFPPP..",
+    "..PPFFBFFBFFPP..",
+    "..PPFFRFFRFFPP..",
+    "..PPFFFBBFFFPP..",
+    "...PPFFFFFFPP...",
+    "....FFFFFFFF....",
+    "....OOOOOOOO....",
+    "...OOOOOOOOOO...",
+    "..FOOOOOOOOOOF..",
+    "....LLLLLLLL....",
+    "....LL....LL....",
+    "...BBB....BBB..."
   ],
   girlRun1: [
-    "....PPPP........",
-    "...PPPPPP.......",
-    "...PFFFFP.......",
-    "...PFFBFF.......",
-    "...PPPPPP.......",
-    "....OOOO........",
-    "..OOOOOOO.......",
-    "..OO.OO.........",
-    "...LL.LL........",
-    "...LL.LL........",
-    "..LL..LL........",
-    ".BB....BB......."
+    "......PPPP......",
+    "....PPPPPPPP....",
+    "...PPPPPPPPPP...",
+    "..PPPPPPPPPPPP..",
+    "..PPPFFFFFFPPP..",
+    "..PPFFBFFBFFPP..",
+    "..PPFFRFFRFFPP..",
+    "..PPFFFBBFFFPP..",
+    "...PPFFFFFFPP...",
+    "....FFFFFFFF....",
+    "....OOOOOOOO....",
+    "...OOOOOOOOOO...",
+    "..FOOOOOOOOOOF..",
+    "....LLLLLLLL....",
+    ".....LL...LL....",
+    "......BB...BB..."
   ],
   girlRun2: [
-    "....PPPP........",
-    "...PPPPPP.......",
-    "...PFFFFP.......",
-    "...PFFBFF.......",
-    "...PPPPPP.......",
-    "....OOOO........",
-    "...OOOOOO.......",
-    "....OOOO........",
-    ".....LL.........",
-    "....LLLL........",
-    "...LL..LL.......",
-    "..BB....B......."
+    "................",
+    "......PPPP......",
+    "....PPPPPPPP....",
+    "...PPPPPPPPPP...",
+    "..PPPPPPPPPPPP..",
+    "..PPPFFFFFFPPP..",
+    "..PPFFBFFBFFPP..",
+    "..PPFFRFFRFFPP..",
+    "..PPFFFBBFFFPP..",
+    "...PPFFFFFFPP...",
+    "....FFFFFFFF....",
+    "....OOOOOOOO....",
+    "...OOOOOOOOOO...",
+    "..FOOOOOOOOOOF..",
+    "....LL...LL.....",
+    "...BB...BB......"
   ],
   firework: [
     "....R.R.........",
@@ -254,6 +278,50 @@ charCards.forEach(card => {
   });
 });
 
+function processCharacterImage(image) {
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = image.width;
+  tempCanvas.height = image.height;
+  const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
+  tempCtx.drawImage(image, 0, 0);
+  const imgData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+  const data = imgData.data;
+  
+  let minX = image.width, minY = image.height, maxX = 0, maxY = 0;
+
+  for (let y = 0; y < image.height; y++) {
+    for (let x = 0; x < image.width; x++) {
+      const i = (y * image.width + x) * 4;
+      const r = data[i];
+      const g = data[i+1];
+      const b = data[i+2];
+      // remove white/off-white background
+      if (r > 240 && g > 240 && b > 240) {
+        data[i+3] = 0;
+      } else {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  tempCtx.putImageData(imgData, 0, 0);
+
+  const cropW = maxX - minX + 1;
+  const cropH = maxY - minY + 1;
+  const cropCanvas = document.createElement('canvas');
+  cropCanvas.width = cropW;
+  cropCanvas.height = cropH;
+  const cropCtx = cropCanvas.getContext('2d');
+  cropCtx.drawImage(tempCanvas, minX, minY, cropW, cropH, 0, 0, cropW, cropH);
+  
+  return cropCanvas;
+}
+
+let boyCanvas = null;
+let girlCanvas = null;
+
 // Draw characters in Start Menu
 function drawMenuCharacters() {
   const canvasBoy = document.getElementById('char-canvas-boy');
@@ -261,13 +329,30 @@ function drawMenuCharacters() {
   const ctxB = canvasBoy.getContext('2d');
   const ctxG = canvasGirl.getContext('2d');
   
-  // Clear and scale
   ctxB.clearRect(0,0,64,64);
   ctxG.clearRect(0,0,64,64);
-  drawSprite(ctxB, 'boyFront', 0, 0, 4);
-  drawSprite(ctxG, 'girlFront', 0, 0, 4);
+  
+  if (boyCanvas) {
+    ctxB.drawImage(boyCanvas, 8, 4, 48, 56);
+  }
+  if (girlCanvas) {
+    ctxG.drawImage(girlCanvas, 8, 4, 48, 56);
+  }
 }
-drawMenuCharacters();
+
+const imgBoy = new Image();
+imgBoy.src = './boy.png';
+imgBoy.onload = () => {
+  boyCanvas = processCharacterImage(imgBoy);
+  drawMenuCharacters();
+};
+
+const imgGirl = new Image();
+imgGirl.src = './girl.png';
+imgGirl.onload = () => {
+  girlCanvas = processCharacterImage(imgGirl);
+  drawMenuCharacters();
+};
 
 // Entities
 class Player {
@@ -307,9 +392,16 @@ class Player {
   }
 
   draw(ctx) {
-    const runFrame = Math.floor(this.animTimer / 10) % 2 === 0 ? 'Run1' : 'Run2';
-    const spriteKey = selectedChar + runFrame;
-    drawSprite(ctx, spriteKey, this.x, this.y);
+    const charCanvas = selectedChar === 'boy' ? boyCanvas : girlCanvas;
+    if (!charCanvas) return;
+
+    let yOffset = 0;
+    if (this.isGrounded) {
+       const runFrame = Math.floor(this.animTimer / 10) % 2;
+       if (runFrame === 1) yOffset = 3; 
+    }
+    
+    ctx.drawImage(charCanvas, this.x - 5, this.y + yOffset, 50, 60);
   }
 }
 
