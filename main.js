@@ -1,3 +1,119 @@
+// Audio Engine (8-bit Synthesizer)
+class AudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.masterGain = null;
+    this.isMuted = false;
+    this.bgmTimeout = null;
+    this.bgmStopped = true;
+  }
+
+  init() {
+    if (this.ctx || this.isMuted) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    this.ctx = new AudioContext();
+    this.masterGain = this.ctx.createGain();
+    this.masterGain.gain.value = 0.8; // 提高整體音量
+    this.masterGain.connect(this.ctx.destination);
+  }
+
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    if (this.isMuted) {
+      this.stopBGM();
+      if (this.ctx && this.ctx.state === 'running') this.ctx.suspend();
+    } else {
+      this.init();
+      if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      if (gameState === 'PLAYING') this.startBGM();
+    }
+    return this.isMuted;
+  }
+
+  playTone(freq, type, duration, vol = 1, slideToFreq = null) {
+    if (this.isMuted || !this.ctx) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+    if (slideToFreq) {
+      osc.frequency.exponentialRampToValueAtTime(slideToFreq, this.ctx.currentTime + duration);
+    }
+    
+    gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+    
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+    
+    osc.start();
+    osc.stop(this.ctx.currentTime + duration);
+  }
+
+  playJump() { this.playTone(150, 'square', 0.15, 0.4, 300); }
+  
+  playCollect() {
+    this.playTone(987.77, 'square', 0.1, 0.2); // B5
+    setTimeout(() => this.playTone(1318.51, 'square', 0.2, 0.2), 100); // E6
+  }
+
+  playHit() { this.playTone(150, 'sawtooth', 0.3, 0.5, 50); }
+  playBounce() { this.playTone(300, 'sine', 0.2, 0.4, 200); }
+  
+  playWin() {
+    // 史詩級勝利號角 (Final Fantasy 勝利音樂風格)
+    const notes = [
+      { f: 523.25, d: 0.1 }, // C5
+      { f: 523.25, d: 0.1 }, // C5
+      { f: 523.25, d: 0.1 }, // C5
+      { f: 523.25, d: 0.3 }, // C5
+      { f: 415.30, d: 0.3 }, // G#4
+      { f: 466.16, d: 0.3 }, // A#4
+      { f: 523.25, d: 0.15 }, // C5
+      { f: 466.16, d: 0.15 }, // A#4
+      { f: 523.25, d: 0.6 }  // C5
+    ];
+    let time = 0;
+    notes.forEach((n) => {
+      setTimeout(() => this.playTone(n.f, 'square', n.d, 0.3), time * 1000);
+      time += n.d + 0.05;
+    });
+  }
+
+  startBGM() {
+    if (this.isMuted || !this.ctx) return;
+    this.stopBGM();
+    
+    const melody = [
+      261.63, 329.63, 392.00, 523.25, // C
+      392.00, 493.88, 587.33, 783.99, // G
+      220.00, 261.63, 329.63, 440.00, // Am
+      174.61, 220.00, 261.63, 349.23  // F
+    ];
+    let step = 0;
+    
+    const playNextNote = () => {
+      if (this.bgmStopped) return;
+      this.playTone(melody[step % melody.length], 'triangle', 0.15, 0.1);
+      step++;
+      this.bgmTimeout = setTimeout(playNextNote, 250);
+    };
+    
+    this.bgmStopped = false;
+    playNextNote();
+  }
+
+  stopBGM() {
+    this.bgmStopped = true;
+    if (this.bgmTimeout) clearTimeout(this.bgmTimeout);
+  }
+}
+const audio = new AudioEngine();
+
 const PIXEL_SIZE = 4;
 const PALETTE = {
   '.': null, // Transparent
@@ -228,11 +344,21 @@ function drawSprite(ctx, spriteKey, x, y, scale = PIXEL_SIZE) {
   }
 }
 
-// Game Configuration
+// =========================================================================
+// 遊戲全域配置區 (您可以隨意修改這裡的文字與參數)
+// =========================================================================
 const CONFIG = {
-  gravity: 0.6,
-  jumpForce: -12,
-  speed: 4,
+  gravity: 0.6,       // 角色掉落重力
+  jumpForce: -12,     // 角色跳躍力道
+  speed: 4,           // 畫面捲動基礎速度
+  
+  // 最終破關的卡片訊息
+  finalMessage: `
+      <p>親愛的 {playerName}，生日快樂！</p>
+      <p>謝謝你一直以來的陪伴，未來的日子也要一起走過無數風景。</p>
+      <p>🎁 提示：去看看你的床頭櫃吧！</p>
+  `,
+
   levelConfigs: [
     {
       id: 1,
@@ -243,10 +369,18 @@ const CONFIG = {
       speedMultiplier: 1.0, // 速度倍率
       spawnRate: 40, // 縮短距離，讓節奏更緊湊
       obstacleSprite: 'monster', // 這關的危險障礙物圖案
-      chapterDesc: "這是一切開始的地方，還記得我們一起看的煙火嗎？",
-      message: "那時的心情跟著煙火一起綻放",
-      photo: "🎆",
-      photoSrc: "", // TODO: 填入您的真實照片路徑，例如 "./my-photo1.jpg"
+      // === 每一關的破關照片與文字設定 ===
+      chapterDesc: "這是一切開始的地方，還記得我們一起看的煙火嗎？", // 關卡開始前的介紹文案
+      message: "那時的心情跟著煙火一起綻放", // 過關時顯示在拍立得下方的文字
+      
+      // 👉 【放入您的照片】：請將照片放到 public 資料夾中，並在這裡填入檔名。例如 "./photo1.jpg"
+      // 如果沒有填寫，會顯示預設的 Emoji 符號。
+      photoSrc: "", 
+      photo: "🎆", // 如果沒有設定照片，會退回顯示這個 Emoji
+      
+      // === 遊戲進行中浮現的回憶文字 ===
+      // distance: 跑了多遠會出現 (數字越大越晚出現)
+      // text: 想對他說的話
       storyMilestones: [
         { distance: 100, text: "還記得我們第一次一起跨年嗎？\n那天天氣超冷的～🥶" },
         { distance: 250, text: "你一直握著我的手，說這樣就不冷了。" },
@@ -263,10 +397,13 @@ const CONFIG = {
       speedMultiplier: 1.2, // 速度變快 1.2 倍
       spawnRate: 35, // 東西出現變得更密集
       obstacleSprite: 'fire', // 這關的危險障礙物圖案
+      // === 每一關的破關照片與文字設定 ===
       chapterDesc: "走遍各地的旅程，每一次迷路都是新的探險。",
       message: "有你在身邊，去哪裡都好玩。",
+      photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo2.jpg"
       photo: "🌲",
-      photoSrc: "", // TODO: 填入您的真實照片路徑
+      
+      // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
         { distance: 100, text: "那次去阿里山迷路...\n還好最後有看到日出！🌅" },
         { distance: 250, text: "每次出門旅行你都會幫我拍好多照片。" },
@@ -283,10 +420,13 @@ const CONFIG = {
       speedMultiplier: 1.5, // 速度變快 1.5 倍
       spawnRate: 25, // 東西出現變得最密集
       obstacleSprite: 'banana', // 這關的危險障礙物圖案
+      // === 每一關的破關照片與文字設定 ===
       chapterDesc: "比起外面的世界，我更喜歡和你窩在沙發上的時光。",
       message: "日常的點點滴滴是最珍貴的寶藏。",
+      photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo3.jpg"
       photo: "🏠",
-      photoSrc: "", // TODO: 填入您的真實照片路徑
+      
+      // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
         { distance: 100, text: "其實只要跟你待在沙發上廢，\n就是最棒的一天啦 🥰" },
         { distance: 250, text: "你煮的晚餐總是特別好吃！" },
@@ -617,11 +757,11 @@ function checkCollisions() {
 
   // Items
   items.forEach(item => {
-    if (item.active &&
-        player.x < item.x + item.width &&
-        player.x + player.width > item.x &&
-        player.y < item.y + item.height &&
-        player.y + player.height > item.y) {
+    const dx = (player.x + player.width/2) - (item.x + item.width/2);
+    const dy = (player.y + player.height/2) - (item.y + item.height/2);
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (item.active && dist < player.width/2 + 20) {
+      audio.playCollect();
       item.active = false;
       score++;
       updateHUD();
@@ -635,14 +775,14 @@ function checkCollisions() {
 
   // Obstacles
   obstacles.forEach(obs => {
-    if (obs.active &&
-        player.x < obs.x + obs.width - 10 &&
-        player.x + player.width - 10 > obs.x &&
-        player.y < obs.y + obs.height - 10 &&
-        player.y + player.height - 10 > obs.y) {
+    const dx = (player.x + player.width/2) - (obs.x + obs.width/2);
+    const dy = (player.y + player.height/2) - (obs.y + obs.height/2);
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (obs.active && dist < player.width/2 + obs.width/2) {
       
       obs.active = false;
       if (obs.type === 'danger') {
+        audio.playHit();
         score = Math.max(0, score - 1);
         updateHUD();
         // Red Flash Effect
@@ -657,6 +797,7 @@ function checkCollisions() {
         }
       } else {
         // Just slow down or visual effect
+        audio.playBounce();
         player.vy = -5; // mini bump
       }
     }
@@ -702,6 +843,8 @@ function updateHUD() {
 
 function levelComplete() {
   gameState = 'LEVEL_END';
+  audio.stopBGM();
+  audio.playWin();
   const levelConf = CONFIG.levelConfigs[currentLevelIndex];
   
   document.getElementById('level-title').innerText = levelConf.title;
@@ -821,6 +964,7 @@ function jumpAction(e) {
   if(e && e.target && (e.target.tagName === 'BUTTON' || e.target.id === 'cake-img')) return;
   
   if (gameState === 'PLAYING') {
+    audio.playJump();
     player.jump();
   }
 }
@@ -879,6 +1023,7 @@ function showChapterScreen() {
 
 function startGame(e) {
   if (e) e.stopPropagation();
+  audio.init(); // 初始化音效引擎
   
   // Get Player Name
   const inputName = document.getElementById('player-name').value.trim();
@@ -896,10 +1041,12 @@ btnStart.addEventListener('touchstart', startGame);
 
 function startChapterPlay(e) {
   if (e) e.stopPropagation();
+  audio.init();
   uiChapter.classList.remove('active');
   hud.classList.remove('hidden');
   initLevel();
   gameState = 'PLAYING';
+  audio.startBGM(); // 關卡開始，播放 BGM
 }
 
 btnStartChapter.addEventListener('click', startChapterPlay);
@@ -926,29 +1073,34 @@ btnNext.addEventListener('click', nextLevel);
 btnNext.addEventListener('touchstart', nextLevel);
 
 // Final Cake Interaction
+let finalAudioTimeout = null;
 function blowCake(e) {
   if (e) e.preventDefault(); // prevent touchstart double firing click
   if (blowCount >= 20) return;
   blowCount++;
   document.getElementById('blow-progress').innerText = blowCount;
+  audio.playTone(200 + blowCount*20, 'sine', 0.1, 0.3); // 吹氣音效
   
-  // Scale down cake slightly as feedback
-  cake.style.transform = `scale(${1 - blowCount*0.01})`;
+  // 蛋糕搖晃與縮小特效
+  const currentScale = 1 - blowCount * 0.01;
+  cake.style.setProperty('--cake-scale', currentScale);
+  cake.classList.remove('cake-shake');
+  void cake.offsetWidth; // trigger reflow
+  cake.classList.add('cake-shake');
   
   if (blowCount >= 20) {
+    audio.playWin();
     document.getElementById('blow-hint').style.display = 'none';
     const msgDiv = document.getElementById('final-message');
     msgDiv.classList.remove('hidden');
-    msgDiv.innerHTML = `
-      <p>親愛的 ${playerName}，生日快樂！</p>
-      <p>謝謝你一直以來的陪伴，未來的日子也要一起走過無數風景。</p>
-      <p>🎁 提示：去看看你的床頭櫃吧！</p>
-    `;
+    msgDiv.innerHTML = CONFIG.finalMessage.replace('{playerName}', playerName);
     
-    cake.style.transform = 'scale(1.2)';
+    // 蠟燭熄滅的效果，並綻放滿滿的像素煙花
+    cake.style.transform = 'scale(1.1)';
+    cake.style.transition = 'all 1s ease-out';
     cake.style.animation = 'none';
     
-    // Confetti effect
+    // Confetti & Fireworks effect
     for(let i=0; i<100; i++) {
       let c = document.createElement('div');
       c.className = 'confetti';
@@ -958,11 +1110,79 @@ function blowCake(e) {
       c.style.animationDelay = (Math.random() * 2) + 's';
       document.body.appendChild(c);
     }
+    
+    // Pixel fireworks explosions using DOM elements
+    for(let i=0; i<15; i++) {
+      setTimeout(() => {
+        const fireX = Math.random() * window.innerWidth;
+        const fireY = Math.random() * window.innerHeight * 0.8;
+        const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#ff9ff3', '#fff200'];
+        
+        for(let p=0; p<30; p++) {
+          let dot = document.createElement('div');
+          dot.style.position = 'absolute';
+          dot.style.left = fireX + 'px';
+          dot.style.top = fireY + 'px';
+          dot.style.width = '8px';
+          dot.style.height = '8px';
+          dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          dot.style.zIndex = '10001';
+          
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 100 + 30;
+          const tx = Math.cos(angle) * speed;
+          const ty = Math.sin(angle) * speed;
+          
+          dot.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          document.body.appendChild(dot);
+          
+          setTimeout(() => {
+            dot.style.transform = `translate(${tx}px, ${ty}px) scale(0)`;
+            dot.style.opacity = '0';
+          }, 10);
+          
+          setTimeout(() => dot.remove(), 1000);
+        }
+      }, Math.random() * 2000);
+    }
   }
 }
 
 cake.addEventListener('click', blowCake);
 cake.addEventListener('touchstart', blowCake);
 
+// Mute Button Logic
+const btnMute = document.getElementById('btn-mute');
+btnMute.onclick = (e) => {
+  e.stopPropagation();
+  const isMuted = audio.toggleMute();
+  btnMute.innerText = isMuted ? '🔇' : '🔊';
+};
+
 // Start loop
 requestAnimationFrame(loop);
+
+// --- Dev Tools for Testing ---
+window.skipToLevel = function(levelIdx) {
+  audio.init();
+  audio.stopBGM();
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  hud.classList.add('hidden');
+  
+  currentLevelIndex = levelIdx;
+  gameState = 'MENU';
+  showChapterScreen();
+};
+
+window.skipToCake = function() {
+  audio.init();
+  audio.stopBGM();
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  hud.classList.add('hidden');
+  
+  gameState = 'FINAL';
+  uiFinal.classList.add('active');
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = '#ff7675';
+  ctx.fillRect(0, 0, width, height);
+};

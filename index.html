@@ -11,8 +11,19 @@
     <div id="app">
       <canvas id="gameCanvas"></canvas>
       
+      <!-- Mute Button -->
+      <button id="btn-mute" style="position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: 2px solid #fff; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; z-index: 9999; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 0 #000; pointer-events: auto;">🔊</button>
+      
       <!-- UI Overlays -->
       <div id="ui-layer">
+        <!-- Dev Menu (For testing) -->
+        <div id="dev-menu" style="position: absolute; bottom: 10px; left: 10px; z-index: 9999; display: flex; gap: 5px; pointer-events: auto;">
+          <button onclick="skipToLevel(0)" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">L1</button>
+          <button onclick="skipToLevel(1)" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">L2</button>
+          <button onclick="skipToLevel(2)" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">L3</button>
+          <button onclick="skipToCake()" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">Cake</button>
+        </div>
+
         <!-- Start Screen -->
         <div id="start-screen" class="screen active">
           <h1>專屬回憶跑酷</h1>
@@ -84,7 +95,7 @@
 
         <!-- Final Birthday Screen -->
         <div id="final-screen" class="screen">
-          <h1>Happy Birthday! 🎂</h1>
+          <h1>Happy Birthday!</h1>
           <div class="cake-container">
             <img id="cake-img" src="./pixel_cake.png" alt="Birthday Cake">
             <p id="blow-hint">狂點螢幕吹熄蠟燭！ (<span id="blow-progress">0</span>/20)</p>
