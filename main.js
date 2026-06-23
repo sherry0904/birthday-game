@@ -351,6 +351,7 @@ const CONFIG = {
   gravity: 0.6,       // 角色掉落重力
   jumpForce: -12,     // 角色跳躍力道
   speed: 4,           // 畫面捲動基礎速度
+  storyDuration: 7000, // 跑道上文字浮現後停留的時間 (毫秒，7000 = 7秒)
   
   // 最終破關的卡片訊息
   finalMessage: `
@@ -714,7 +715,7 @@ function showStoryOverlay(milestone) {
     setTimeout(() => {
        storyOverlay.classList.add('hidden');
     }, 500);
-  }, 7000); // 顯示 7 秒
+  }, CONFIG.storyDuration); // 讀取設定檔的停留時間
 }
 
 function spawnEntities() {
