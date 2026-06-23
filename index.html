@@ -15,11 +15,11 @@
       <div id="ui-layer">
         <!-- Start Screen -->
         <div id="start-screen" class="screen active">
-          <h1>專屬回憶跑酷 🎈</h1>
+          <h1>專屬回憶跑酷</h1>
           <p>準備好重溫我們的美好時光了嗎？</p>
-          
+
           <div class="character-selection">
-            <h3>選擇你的角色</h3>
+            <h2>選擇你的角色</h2>
             <div class="char-options">
               <div class="char-card selected" data-char="boy">
                 <canvas id="char-canvas-boy" width="64" height="64"></canvas>
@@ -39,13 +39,46 @@
           <button id="start-btn">開始旅程</button>
         </div>
 
+        <!-- Chapter Intro Screen -->
+        <div id="chapter-screen" class="screen">
+          <h2 id="chapter-title">Level 1</h2>
+          <p id="chapter-desc" style="font-size: 1.1rem; margin: 0.5rem 0 1.5rem; line-height: 1.6;">準備進入這個篇章...</p>
+          
+          <div class="tutorial-box" style="margin-bottom: 1.5rem; text-align: center; padding: 15px; line-height: 1.5; background: rgba(0,0,0,0.6); border-radius: 8px; border: 2px solid #555;">
+            <h3 style="color: #f1c40f; margin-bottom: 8px; text-shadow: 1px 1px 0px #000;">🕹️ 操作方式</h3>
+            <p style="font-size: 0.95rem; color: #ffffff; margin-bottom: 0;">點擊螢幕 或 按空白鍵跳躍</p>
+            
+            <h3 style="color: #f1c40f; margin-top: 15px; margin-bottom: 8px; text-shadow: 1px 1px 0px #000;">🎯 收集目標 (<span id="chapter-item-count">5</span>個)</h3>
+            <div id="chapter-items" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 5px;">
+              <!-- Dynamic items -->
+            </div>
+            
+            <h3 style="color: #e74c3c; margin-top: 15px; margin-bottom: 8px; text-shadow: 1px 1px 0px #000;">⚠️ 注意躲避障礙物</h3>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 30px;">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <div id="chapter-obstacle"></div>
+                <span style="font-size: 0.8rem; color: #ff7675;">扣 1 分</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                <div id="chapter-cloud"></div>
+                <span style="font-size: 0.8rem; color: #74b9ff;">彈跳干擾</span>
+              </div>
+            </div>
+          </div>
+
+          <button id="start-chapter-btn">開始奔跑</button>
+        </div>
+
         <!-- Level Transition Screen -->
         <div id="level-screen" class="screen">
           <h2 id="level-title">Level 1</h2>
-          <div class="photo-frame">
-            <div id="level-photo" class="photo-placeholder">📸</div>
+          <div class="polaroid-frame" style="margin: 0 auto 1.5rem;">
+            <div id="level-photo-container" style="width: 100%; height: 180px; background: #eee; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 15px;">
+              <img id="level-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="display:none; width: 100%; height: 100%; object-fit: cover;" alt="Memory Photo" />
+              <div id="level-photo-placeholder" style="font-size: 3rem;">📸</div>
+            </div>
+            <div class="polaroid-text" id="level-message">那時的心情跟著煙火一起綻放</div>
           </div>
-          <p id="level-message">那時的心情跟著煙火一起綻放</p>
           <button id="next-level-btn">繼續前進</button>
         </div>
 
@@ -53,7 +86,7 @@
         <div id="final-screen" class="screen">
           <h1>Happy Birthday! 🎂</h1>
           <div class="cake-container">
-            <div id="cake">🎂</div>
+            <img id="cake-img" src="./pixel_cake.png" alt="Birthday Cake">
             <p id="blow-hint">狂點螢幕吹熄蠟燭！ (<span id="blow-progress">0</span>/20)</p>
           </div>
           <div id="final-message" class="hidden">
@@ -65,8 +98,36 @@
 
         <!-- HUD -->
         <div id="hud" class="hidden">
-          <div class="score">收集進度: <span id="score-val">0</span>/5</div>
-          <div class="level-indicator">Level <span id="current-level-val">1</span></div>
+          <div class="hud-item score-container">
+            <svg class="pixel-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" width="24" height="24" shape-rendering="crispEdges">
+              <rect x="7" y="0" width="1" height="1" fill="#f1c40f"/>
+              <rect x="6" y="1" width="3" height="1" fill="#f1c40f"/>
+              <rect x="5" y="2" width="5" height="1" fill="#f1c40f"/>
+              <rect x="4" y="3" width="7" height="1" fill="#f1c40f"/>
+              <rect x="0" y="4" width="15" height="1" fill="#f1c40f"/>
+              <rect x="1" y="5" width="13" height="1" fill="#f1c40f"/>
+              <rect x="2" y="6" width="11" height="1" fill="#f1c40f"/>
+              <rect x="3" y="7" width="9" height="1" fill="#f1c40f"/>
+              <rect x="4" y="8" width="7" height="1" fill="#f1c40f"/>
+              <rect x="3" y="9" width="3" height="1" fill="#f1c40f"/>
+              <rect x="9" y="9" width="3" height="1" fill="#f1c40f"/>
+              <rect x="2" y="10" width="3" height="1" fill="#f1c40f"/>
+              <rect x="10" y="10" width="3" height="1" fill="#f1c40f"/>
+              <rect x="1" y="11" width="3" height="1" fill="#f1c40f"/>
+              <rect x="11" y="11" width="3" height="1" fill="#f1c40f"/>
+            </svg>
+            <span id="score-val">0</span> / <span id="score-total">5</span>
+          </div>
+          <div class="hud-item level-container">
+            Level <span id="current-level-val">1</span>
+          </div>
+        </div>
+
+        <!-- In-game Story Text -->
+        <div id="story-overlay" class="hidden">
+          <div class="story-text-container" id="story-text">
+            這裡會顯示我們的回憶...
+          </div>
         </div>
       </div>
     </div>
