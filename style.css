@@ -1,8 +1,8 @@
 :root {
   --primary: #ff6b6b;
-  --secondary: #4ecdc4;
+  --secondary: #16a085; /* Darker cyan for better readability */
   --text: #2d3436;
-  --bg-overlay: rgba(255, 255, 255, 0.85);
+  --bg-overlay: rgba(255, 255, 255, 0.9);
 }
 
 * {
@@ -116,6 +116,7 @@ h1 {
   color: var(--primary);
   margin-bottom: 1rem;
   font-size: 2rem;
+  white-space: nowrap;
 }
 
 h2 {

@@ -470,6 +470,7 @@ const hud = document.getElementById('hud');
 
 const btnStart = document.getElementById('start-btn');
 const btnStartChapter = document.getElementById('start-chapter-btn');
+const btnShowInstruction = document.getElementById('show-instruction-btn');
 const btnNext = document.getElementById('next-level-btn');
 const cake = document.getElementById('cake-img');
 
@@ -1004,6 +1005,17 @@ function renderSpriteToCanvas(spriteKey, scale = 4) {
 }
 
 function showChapterScreen() {
+  // Show intro part, hide instruction part
+  document.getElementById('chapter-intro-part').style.display = 'block';
+  document.getElementById('chapter-instruction-part').style.display = 'none';
+  
+  // Device detection for jump instruction text
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const jumpInstruction = document.getElementById('jump-instruction');
+  if (jumpInstruction) {
+    jumpInstruction.innerText = isMobile ? "「點擊螢幕跳躍」\n繼續把這段回憶跑下去" : "點擊螢幕 或 按空白鍵跳躍，繼續把這段回憶跑下去";
+  }
+
   const levelConf = CONFIG.levelConfigs[currentLevelIndex];
   document.getElementById('chapter-title').innerText = levelConf.title;
   document.getElementById('chapter-desc').innerText = levelConf.chapterDesc;
@@ -1044,6 +1056,19 @@ function startGame(e) {
 
 btnStart.addEventListener('click', startGame);
 btnStart.addEventListener('touchstart', startGame);
+
+btnShowInstruction.addEventListener('click', (e) => {
+  if (e) e.stopPropagation();
+  audio.playJump();
+  document.getElementById('chapter-intro-part').style.display = 'none';
+  document.getElementById('chapter-instruction-part').style.display = 'block';
+});
+btnShowInstruction.addEventListener('touchstart', (e) => {
+  if (e) e.stopPropagation();
+  audio.playJump();
+  document.getElementById('chapter-intro-part').style.display = 'none';
+  document.getElementById('chapter-instruction-part').style.display = 'block';
+});
 
 function startChapterPlay(e) {
   if (e) e.stopPropagation();
