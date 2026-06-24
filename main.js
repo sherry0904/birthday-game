@@ -351,7 +351,7 @@ const CONFIG = {
   gravity: 0.6,       // 角色掉落重力
   jumpForce: -12,     // 角色跳躍力道
   speed: 4,           // 畫面捲動基礎速度
-  storyDuration: 7000, // 跑道上文字浮現後停留的時間 (毫秒，7000 = 7秒)
+  storyDuration: 6000, // 無敵留白與閱讀時間 (毫秒，6000 = 6秒。可以自由調整！)
   
   // 最終破關的卡片訊息
   finalMessage: `
@@ -365,10 +365,10 @@ const CONFIG = {
   levelConfigs: [
     {
       id: 1,
-      title: "Chapter 1｜心動是從一時衝動開始的",
+      title: "Chapter 1\n心動是從一時衝動開始的",
       bgType: 'night',
       itemSprites: ['firework', 'heart'],
-      itemCount: 10, // 增加到 10 個讓遊戲節奏更長
+      itemCount: 12, // 遊戲過關所需的寶物數量
       speedMultiplier: 1.0, // 速度倍率
       spawnRate: 40, // 縮短距離，讓節奏更緊湊
       obstacleSprite: 'monster', // 這關的危險障礙物圖案
@@ -382,23 +382,22 @@ const CONFIG = {
       photo: "🎆", // 如果沒有設定照片，會退回顯示這個 Emoji
       
       // === 遊戲進行中浮現的回憶文字 ===
-      // distance: 跑了多遠會出現 (數字越大越晚出現)
+      // itemTarget: 收集到第幾個道具時出現
       // text: 想對他說的話
       storyMilestones: [
-        { distance: 100, text: "「不如我們直接衝高雄，看完就回來！」" },
-        { distance: 250, text: "現在想想，那根本不是提議，\n是戀愛裡的第一場衝動。" },
-        { distance: 400, text: "那天的煙火很亮，\n但你站在旁邊，害我根本沒辦法專心看天上。" },
-        { distance: 550, text: "從那一刻開始，\n你不只是學長，是我想偏心的人。" },
-        { distance: 700, text: "原來安心不是抽象名詞，\n是你握住我的手的樣子。" },
-        { distance: 850, text: "如果故事真的有開頭，\n那天就是我偷偷把你寫進未來的那一頁。" }
+        { itemTarget: 2, text: "「不如我們直接衝高雄，看完就回來！」" },
+        { itemTarget: 4, text: "現在想想，那根本不是提議，是戀愛裡的第一場衝動。" },
+        { itemTarget: 6, text: "那天的煙火很亮，但你站在旁邊，害我根本沒辦法專心看天上。" },
+        { itemTarget: 8, text: "從那一刻開始，你不只是學長，是我想偏心的人。" },
+        { itemTarget: 10, text: "原來安心不是抽象名詞，是你握住我的手的樣子。" },
       ]
     },
     {
       id: 2,
-      title: "Chapter 2｜有你在，路遠一點也沒關係",
+      title: "Chapter 2\n有你在，路遠一點也沒關係",
       bgType: 'forest',
       itemSprites: ['camera', 'suitcase'],
-      itemCount: 10, // 增加到 10 個讓遊戲節奏更長
+      itemCount: 12, // 遊戲過關所需的寶物數量
       speedMultiplier: 1.2, // 速度變快 1.2 倍
       spawnRate: 35, // 東西出現變得更密集
       obstacleSprite: 'fire', // 這關的危險障礙物圖案
@@ -410,34 +409,35 @@ const CONFIG = {
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { distance: 100, text: "那趟山路又長又霧，\n像在考驗我們是不是真的很想看風景。" },
-        { distance: 250, text: "結果日出沒看到，\n卻看到夕陽、雲海，還有一路上很照顧我的你。" },
-        { distance: 400, text: "我走得慢、走得狼狽，\n你也沒有催我，只是陪我一起慢慢走。" },
-        { distance: 550, text: "後來我才發現，\n喜歡一個人，不是只想一起去遠方。" },
-        { distance: 700, text: "是連不好走的路，\n都希望旁邊站的是你。" }
+        { itemTarget: 2, text: "那趟山路又長又霧，像在考驗我們是不是真的很想看風景。" },
+        { itemTarget: 4, text: "結果日出沒看到，卻看到夕陽、雲海，還有一路上很照顧我的你。" },
+        { itemTarget: 6, text: "我走得慢、走得狼狽，你也沒有催我，只是陪我一起慢慢走。" },
+        { itemTarget: 8, text: "後來我才發現，喜歡一個人，不是只想一起去遠方。" },
+        { itemTarget: 10, text: "是連不好走的路，都希望旁邊站的是你。" }
       ]
     },
     {
       id: 3,
-      title: "Chapter 3｜後來最喜歡的，是我們的日常",
+      title: "Chapter 3\n後來最喜歡的，是我們的日常",
       bgType: 'home',
       itemSprites: ['controller', 'pan'],
-      itemCount: 10, // 增加到 10 個讓遊戲節奏更長
+      itemCount: 12, // 遊戲過關所需的寶物數量
       speedMultiplier: 1.5, // 速度變快 1.5 倍
       spawnRate: 25, // 東西出現變得最密集
       obstacleSprite: 'banana', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "不是每一天都有煙火和遠方，\n但有你的晚餐、沙發和廢片，就已經很幸福了。",
+      chapterDesc: "不是每一天都有煙火和遠方，但有你的晚餐、沙發和廢片，就已經很幸福了。",
       message: "最珍貴的，不是特別的一天，是每一天都有你。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo3.jpg"
       photo: "🏠",
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { distance: 100, text: "後來我越來越喜歡那些\n看起來沒什麼的大日子。" },
-        { distance: 250, text: "像是一起窩在沙發上，\n什麼都不做，也覺得今天很好。" },
-        { distance: 400, text: "像是你煮飯，我在旁邊亂晃，\n最後還是吃得很開心。" },
-        { distance: 550, text: "原來真正想共度餘生的人，\n會出現在每一個回家以後的晚上。" }
+        { itemTarget: 2, text: "後來我越來越喜歡那些看起來沒什麼的大日子。" },
+        { itemTarget: 4, text: "像是一起窩在沙發上，什麼都不做，也覺得今天很好。" },
+        { itemTarget: 6, text: "像是你煮飯，我在旁邊亂晃，最後還是吃得很開心。" },
+        { itemTarget: 8, text: "原來真正想共度餘生的人，會出現在每一個回家以後的晚上。" },
+        { itemTarget: 10, text: "你把那些平凡的日子，慢慢過成了我最捨不得快轉的人生片段。" }
       ]
     }
   ]
@@ -483,6 +483,7 @@ let lastSpawnDistance = 0;
 let consecutiveItems = 0;
 let consecutiveObstacles = 0;
 let blowCount = 0;
+let isSafeZone = false;
 
 let playerName = "親愛的";
 let selectedChar = "boy";
@@ -701,7 +702,7 @@ function checkStoryMilestones() {
   
   if (currentStoryIndex < levelConf.storyMilestones.length) {
     const milestone = levelConf.storyMilestones[currentStoryIndex];
-    if (distance >= milestone.distance) {
+    if (score >= milestone.itemTarget) {
       showStoryOverlay(milestone);
       currentStoryIndex++;
     }
@@ -714,17 +715,21 @@ function showStoryOverlay(milestone) {
   storyOverlay.classList.remove('hidden');
   void storyOverlay.offsetWidth; // Trigger reflow
   storyOverlay.classList.add('visible');
+  isSafeZone = true; // 進入無障礙安全區
   
   if (storyTimeout) clearTimeout(storyTimeout);
   storyTimeout = setTimeout(() => {
     storyOverlay.classList.remove('visible');
     setTimeout(() => {
        storyOverlay.classList.add('hidden');
+       isSafeZone = false; // 離開安全區
     }, 500);
   }, CONFIG.storyDuration); // 讀取設定檔的停留時間
 }
 
 function spawnEntities() {
+  if (isSafeZone) return; // 進入無敵看字模式時，停止生成任何道具與障礙物
+
   const levelConf = CONFIG.levelConfigs[currentLevelIndex];
   const spawnRate = levelConf.spawnRate || 300;
   const currentSpeed = CONFIG.speed * (levelConf.speedMultiplier || 1.0);

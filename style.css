@@ -337,41 +337,68 @@ button:active {
   font-size: 0.95rem;
 }
 
-/* Story Overlay (Text Only) */
+/* Story Overlay (Dialogue Bubble Style) */
 #story-overlay {
   position: absolute;
-  top: 100px;
+  top: 35%; /* Moved slightly higher to avoid blocking the road */
   width: 100%;
   display: flex;
   justify-content: center;
   pointer-events: none;
   z-index: 100;
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #story-overlay.hidden {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(20px) scale(0.9);
   pointer-events: none;
 }
 
 #story-overlay.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .story-text-container {
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 20px;
-  border: 2px solid white;
-  font-size: 1.4rem;
-  text-shadow: 2px 2px 0 #000;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  color: #2d3436;
+  padding: 15px 30px;
+  border-radius: 30px;
+  border: 3px solid var(--secondary);
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-shadow: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   max-width: 80%;
-  line-height: 1.6;
-  box-shadow: 0 6px 0 rgba(0,0,0,0.5);
+  position: relative;
+}
+
+/* Little tail for the speech bubble */
+.story-text-container::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+  display: block;
+  width: 0;
+}
+/* Border tail */
+.story-text-container::before {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 12px 12px 0;
+  border-style: solid;
+  border-color: var(--secondary) transparent transparent transparent;
+  display: block;
+  width: 0;
 }
 
 .polaroid-frame {
