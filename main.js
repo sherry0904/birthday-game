@@ -356,14 +356,16 @@ const CONFIG = {
   // 最終破關的卡片訊息
   finalMessage: `
       <p>親愛的 {playerName}，生日快樂！</p>
-      <p>謝謝你一直以來的陪伴，未來的日子也要一起走過無數風景。</p>
+      <p>謝謝你陪我把那些衝動、冒險、平凡日常，一點一點都過成了我最捨不得忘記的回憶。</p>
+      <p>以前覺得浪漫是煙火、是遠方、是特別安排的驚喜。後來才知道，真正的浪漫，是我每一次回頭，都剛好看見你還在我身邊。</p>
+      <p>新的一歲，希望你開心、健康、被愛著。而我也想繼續陪你，把往後的每一年，都過成我們的故事。</p>
       <p>提示：去看看你的床頭櫃吧！</p>
   `,
 
   levelConfigs: [
     {
       id: 1,
-      title: "Level 1",
+      title: "Chapter 1｜心動是從一時衝動開始的",
       bgType: 'night',
       itemSprites: ['firework', 'heart'],
       itemCount: 10, // 增加到 10 個讓遊戲節奏更長
@@ -371,8 +373,8 @@ const CONFIG = {
       spawnRate: 40, // 縮短距離，讓節奏更緊湊
       obstacleSprite: 'monster', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "2022.02.12\n故事從這裡開始", // 關卡開始前的介紹文案
-      message: "那時的心情跟著煙火綻放", // 過關時顯示在拍立得下方的文字
+      chapterDesc: "2022.02.12\n原本只是去看煙火，結果一不小心，把彼此也看進了未來。", // 關卡開始前的介紹文案
+      message: "故事的開頭很鬧，但我很喜歡。因為主角是你。", // 過關時顯示在拍立得下方的文字
       
       // 👉 【放入您的照片】：請將照片放到 public 資料夾中，並在這裡填入檔名。例如 "./photo1.jpg"
       // 如果沒有填寫，會顯示預設的 Emoji 符號。
@@ -384,16 +386,16 @@ const CONFIG = {
       // text: 想對他說的話
       storyMilestones: [
         { distance: 100, text: "「不如我們直接衝高雄，看完就回來！」" },
-        { distance: 250, text: "那天你握著我的手\n靠在一起等著煙火與無人機" },
-        { distance: 400, text: "那一刻起，你不再是學長，而是男朋友" },
-        { distance: 550, text: "謝謝你的體貼、溫柔\n讓我感到很安心" },
-        { distance: 700, text: "後來我們一起去了好多地方..." },
-        { distance: 850, text: "那時候我就知道，接下來的日子有你就夠了。" }
+        { distance: 250, text: "現在想想，那根本不是提議，\n是戀愛裡的第一場衝動。" },
+        { distance: 400, text: "那天的煙火很亮，\n但你站在旁邊，害我根本沒辦法專心看天上。" },
+        { distance: 550, text: "從那一刻開始，\n你不只是學長，是我想偏心的人。" },
+        { distance: 700, text: "原來安心不是抽象名詞，\n是你握住我的手的樣子。" },
+        { distance: 850, text: "如果故事真的有開頭，\n那天就是我偷偷把你寫進未來的那一頁。" }
       ]
     },
     {
       id: 2,
-      title: "Level 2",
+      title: "Chapter 2｜有你在，路遠一點也沒關係",
       bgType: 'forest',
       itemSprites: ['camera', 'suitcase'],
       itemCount: 10, // 增加到 10 個讓遊戲節奏更長
@@ -401,23 +403,23 @@ const CONFIG = {
       spawnRate: 35, // 東西出現變得更密集
       obstacleSprite: 'fire', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "2022.11.17 阿里山大探險。",
-      message: "有你在身邊，去哪裡都好玩。",
+      chapterDesc: "2022.11.17\n不是每次旅程都完美，但只要身邊是你，偏差也會變成驚喜。",
+      message: "因為有你，旅途從來不只是抵達，而是一路都值得。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo2.jpg"
       photo: "🌲",
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { distance: 100, text: "第一次開那麼長的山路，還遇到了大霧。" },
-        { distance: 250, text: "雖然沒有看到日出，但有美麗的夕陽跟雲海。" },
-        { distance: 400, text: "我還走到膝蓋壞掉，你也願意陪我慢慢走。" },
-        { distance: 550, text: "每次的旅行都留下許多了照片與回憶。" },
-        { distance: 700, text: "有你在的旅途，就算下雨也覺得好玩。" }
+        { distance: 100, text: "那趟山路又長又霧，\n像在考驗我們是不是真的很想看風景。" },
+        { distance: 250, text: "結果日出沒看到，\n卻看到夕陽、雲海，還有一路上很照顧我的你。" },
+        { distance: 400, text: "我走得慢、走得狼狽，\n你也沒有催我，只是陪我一起慢慢走。" },
+        { distance: 550, text: "後來我才發現，\n喜歡一個人，不是只想一起去遠方。" },
+        { distance: 700, text: "是連不好走的路，\n都希望旁邊站的是你。" }
       ]
     },
     {
       id: 3,
-      title: "Level 3",
+      title: "Chapter 3｜後來最喜歡的，是我們的日常",
       bgType: 'home',
       itemSprites: ['controller', 'pan'],
       itemCount: 10, // 增加到 10 個讓遊戲節奏更長
@@ -425,17 +427,17 @@ const CONFIG = {
       spawnRate: 25, // 東西出現變得最密集
       obstacleSprite: 'banana', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "比起外面的世界，有時候更喜歡和你窩在沙發上。",
-      message: "日常的點點滴滴是最珍貴的寶藏。",
+      chapterDesc: "不是每一天都有煙火和遠方，\n但有你的晚餐、沙發和廢片，就已經很幸福了。",
+      message: "最珍貴的，不是特別的一天，是每一天都有你。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo3.jpg"
       photo: "🏠",
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { distance: 100, text: "其實跟你待在沙發上廢，\n也會是最棒的一天啦 " },
-        { distance: 250, text: "你煮的飯總是特別好吃！" },
-        { distance: 400, text: "一起打電動、一起看廢片..." },
-        { distance: 550, text: "未來的每一天，也請繼續多多照顧 🥰" }
+        { distance: 100, text: "後來我越來越喜歡那些\n看起來沒什麼的大日子。" },
+        { distance: 250, text: "像是一起窩在沙發上，\n什麼都不做，也覺得今天很好。" },
+        { distance: 400, text: "像是你煮飯，我在旁邊亂晃，\n最後還是吃得很開心。" },
+        { distance: 550, text: "原來真正想共度餘生的人，\n會出現在每一個回家以後的晚上。" }
       ]
     }
   ]
