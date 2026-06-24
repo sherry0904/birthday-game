@@ -357,7 +357,7 @@ const CONFIG = {
   finalMessage: `
       <p>親愛的 {playerName}，生日快樂！</p>
       <p>謝謝你一直以來的陪伴，未來的日子也要一起走過無數風景。</p>
-      <p>🎁 提示：去看看你的床頭櫃吧！</p>
+      <p>提示：去看看你的床頭櫃吧！</p>
   `,
 
   levelConfigs: [
@@ -371,8 +371,8 @@ const CONFIG = {
       spawnRate: 40, // 縮短距離，讓節奏更緊湊
       obstacleSprite: 'monster', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "這是一切開始的地方，還記得我們一起看的煙火嗎？", // 關卡開始前的介紹文案
-      message: "那時的心情跟著煙火一起綻放", // 過關時顯示在拍立得下方的文字
+      chapterDesc: "2022.02.12\n故事從這裡開始", // 關卡開始前的介紹文案
+      message: "那時的心情跟著煙火綻放", // 過關時顯示在拍立得下方的文字
       
       // 👉 【放入您的照片】：請將照片放到 public 資料夾中，並在這裡填入檔名。例如 "./photo1.jpg"
       // 如果沒有填寫，會顯示預設的 Emoji 符號。
@@ -383,10 +383,12 @@ const CONFIG = {
       // distance: 跑了多遠會出現 (數字越大越晚出現)
       // text: 想對他說的話
       storyMilestones: [
-        { distance: 100, text: "還記得我們第一次一起跨年嗎？\n那天天氣超冷的～🥶" },
-        { distance: 250, text: "你一直握著我的手，說這樣就不冷了。" },
-        { distance: 400, text: "後來我們一起去了好多地方..." },
-        { distance: 550, text: "那時候我就知道，接下來的日子有你就夠了。" }
+        { distance: 100, text: "「不如我們直接衝高雄，看完就回來！」" },
+        { distance: 250, text: "那天你握著我的手\n靠在一起等著煙火與無人機" },
+        { distance: 400, text: "那一刻起，你不再是學長，而是男朋友" },
+        { distance: 550, text: "謝謝你的體貼、溫柔\n讓我感到很安心" },
+        { distance: 700, text: "後來我們一起去了好多地方..." },
+        { distance: 850, text: "那時候我就知道，接下來的日子有你就夠了。" }
       ]
     },
     {
@@ -399,17 +401,18 @@ const CONFIG = {
       spawnRate: 35, // 東西出現變得更密集
       obstacleSprite: 'fire', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "走遍各地的旅程，每一次迷路都是新的探險。",
+      chapterDesc: "2022.11.17 阿里山大探險。",
       message: "有你在身邊，去哪裡都好玩。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo2.jpg"
       photo: "🌲",
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { distance: 100, text: "那次去阿里山迷路...\n還好最後有看到日出！🌅" },
-        { distance: 250, text: "每次出門旅行你都會幫我拍好多照片。" },
-        { distance: 400, text: "雖然有時候會為了行程吵架，哈哈。" },
-        { distance: 550, text: "但有你在的旅途，就算下雨也覺得好玩。" }
+        { distance: 100, text: "第一次開那麼長的山路，還遇到了大霧。" },
+        { distance: 250, text: "雖然沒有看到日出，但有美麗的夕陽跟雲海。" },
+        { distance: 400, text: "我還走到膝蓋壞掉，你也願意陪我慢慢走。" },
+        { distance: 550, text: "每次的旅行都留下許多了照片與回憶。" },
+        { distance: 700, text: "有你在的旅途，就算下雨也覺得好玩。" }
       ]
     },
     {
@@ -422,17 +425,17 @@ const CONFIG = {
       spawnRate: 25, // 東西出現變得最密集
       obstacleSprite: 'banana', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "比起外面的世界，我更喜歡和你窩在沙發上的時光。",
+      chapterDesc: "比起外面的世界，有時候更喜歡和你窩在沙發上。",
       message: "日常的點點滴滴是最珍貴的寶藏。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo3.jpg"
       photo: "🏠",
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { distance: 100, text: "其實只要跟你待在沙發上廢，\n就是最棒的一天啦 🥰" },
-        { distance: 250, text: "你煮的晚餐總是特別好吃！" },
+        { distance: 100, text: "其實跟你待在沙發上廢，\n也會是最棒的一天啦 " },
+        { distance: 250, text: "你煮的飯總是特別好吃！" },
         { distance: 400, text: "一起打電動、一起看廢片..." },
-        { distance: 550, text: "未來的每一天，也要一起這樣平平淡淡的過喔。" }
+        { distance: 550, text: "未來的每一天，也請繼續多多照顧 🥰" }
       ]
     }
   ]
