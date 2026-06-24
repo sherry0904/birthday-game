@@ -115,13 +115,19 @@ canvas {
 h1 {
   color: var(--primary);
   margin-bottom: 1rem;
-  font-size: 2rem;
-  white-space: nowrap;
+  font-size: 1.6rem; /* Reduced from 2rem */
+  word-wrap: break-word;
+  word-break: keep-all; /* Prevents awkward single-character line breaks for Chinese text */
+  line-height: 1.4;
 }
 
 h2 {
   color: var(--secondary);
   margin-bottom: 1rem;
+  font-size: 1.3rem; /* Set explicit size */
+  word-wrap: break-word;
+  word-break: keep-all;
+  line-height: 1.4;
 }
 
 p {
@@ -364,7 +370,7 @@ button:active {
   background: rgba(255, 255, 255, 0.95);
   color: #2d3436;
   padding: 15px 30px;
-  border-radius: 30px;
+  border-radius: 12px; /* Changed from 30px to 12px for a card look instead of a bubble */
   border: 3px solid var(--secondary);
   font-size: 1.3rem;
   font-weight: bold;
@@ -372,33 +378,8 @@ button:active {
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   max-width: 80%;
   position: relative;
-}
-
-/* Little tail for the speech bubble */
-.story-text-container::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 10px 10px 0;
-  border-style: solid;
-  border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
-  display: block;
-  width: 0;
-}
-/* Border tail */
-.story-text-container::before {
-  content: '';
-  position: absolute;
-  bottom: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 12px 12px 0;
-  border-style: solid;
-  border-color: var(--secondary) transparent transparent transparent;
-  display: block;
-  width: 0;
+  text-align: center;
+  line-height: 1.6;
 }
 
 .polaroid-frame {

@@ -265,20 +265,20 @@ const SPRITES = {
     "....RR.........."
   ],
   camera: [
-    "...KKKK.........",
-    ".KKKKKKKK.......",
-    ".KK.W..KK.......",
-    ".KK....KK.......",
-    ".KKKKKKKK......."
+    "...RRR..........",
+    ".YYYYYYYYY......",
+    ".YYYWWYYYY......",
+    ".YYYWWYYYY......",
+    ".YYYYYYYYY......"
   ],
   suitcase: [
-    "...KKKK.........",
-    "...K..K.........",
-    ".DDDDDDDD.......",
-    ".D.D..D.D.......",
-    ".DDDDDDDD.......",
-    ".D.D..D.D.......",
-    ".DDDDDDDD......."
+    "....OOO.........",
+    "....O.O.........",
+    "..RRRRRRR.......",
+    "..RWRWRWR.......",
+    "..RRRRRRR.......",
+    "..RWRWRWR.......",
+    "..RRRRRRR......."
   ],
   controller: [
     "................",
@@ -394,7 +394,7 @@ const CONFIG = {
     },
     {
       id: 2,
-      title: "Chapter 2\n有你在，路遠一點也沒關係",
+      title: "Chapter 2\n有你在，\n路遠一點也沒關係",
       bgType: 'forest',
       itemSprites: ['camera', 'suitcase'],
       itemCount: 12, // 遊戲過關所需的寶物數量
@@ -485,7 +485,7 @@ let consecutiveObstacles = 0;
 let blowCount = 0;
 let isSafeZone = false;
 
-let playerName = "親愛的";
+let playerName = "寶貝";
 let selectedChar = "boy";
 
 // Initialize UI Selection
