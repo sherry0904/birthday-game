@@ -18,7 +18,7 @@
       <!-- UI Overlays -->
       <div id="ui-layer">
         <!-- Dev Menu (For testing) -->
-        <div id="dev-menu" style="position: absolute; bottom: 10px; left: 10px; z-index: 9999; display: flex; gap: 5px; pointer-events: auto;">
+        <div id="dev-menu" style="position: absolute; bottom: 10px; left: 10px; z-index: 9999; display: none; gap: 5px; pointer-events: auto;">
           <button onclick="skipToLevel(0)" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">L1</button>
           <button onclick="skipToLevel(1)" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">L2</button>
           <button onclick="skipToLevel(2)" style="padding: 5px 8px; font-size: 0.8rem; background: rgba(255,255,255,0.7); border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">L3</button>
@@ -66,7 +66,7 @@
 
           <div id="chapter-instruction-part" style="display: none;">
             <div class="tutorial-box" style="margin-bottom: 1.5rem; text-align: center; padding: 15px; line-height: 1.5; background: rgba(30,30,30,0.85); border-radius: 12px; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-              <h3 style="color: #f1c40f; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 1px 1px 2px #000; white-space: nowrap; word-break: keep-all;">🕹️ 翻頁方式</h3>
+              <h3 style="color: #f1c40f; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 1px 1px 2px #000; white-space: nowrap; word-break: keep-all;">[ 翻頁方式 ]</h3>
               <p id="jump-instruction" style="font-size: 0.95rem; color: #ffffff; margin-bottom: 0;">點擊螢幕 或 按空白鍵跳躍</p>
               
               <h3 style="color: #f1c40f; margin-top: 15px; margin-bottom: 12px; font-size: 1.1rem; text-shadow: 1px 1px 2px #000; white-space: nowrap; word-break: keep-all;">任務：收集 <span id="chapter-item-count" style="color: #fff; font-size: 1.2rem; margin: 0 4px;">12</span> 個記憶</h3>

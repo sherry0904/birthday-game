@@ -390,10 +390,10 @@ const CONFIG = {
   // 最終破關的卡片訊息
   finalMessage: `
       <p>親愛的 {playerName}，生日快樂！</p>
-      <p>謝謝你陪我把那些衝動、冒險、平凡日常，一點一點都過成了我最捨不得忘記的回憶。</p>
-      <p>以前覺得浪漫是煙火、是遠方、是特別安排的驚喜。後來才知道，真正的浪漫，是我每一次回頭，都剛好看見你還在我身邊。</p>
-      <p>新的一歲，希望你開心、健康、被愛著。而我也想繼續陪你，把往後的每一年，都過成我們的故事。</p>
-      <p>提示：去看看你的床頭櫃吧！</p>
+      <p>謝謝你陪我把那些衝動、冒險、平凡日常，一點一點都過成了我最喜歡的模樣。</p>
+      <p>以前覺得浪漫是煙火、是遠方、是特別安排的驚喜。後來才知道，真正的浪漫，是我每一次回頭，你都剛好在身邊。</p>
+      <p>新的一歲，希望你開心、健康、被愛著。而我們也彼此陪伴，在往後的每一年寫下我們的故事。</p>
+      <p>來領破關生日禮物吧！</p>
   `,
 
   levelConfigs: [
@@ -467,13 +467,13 @@ const CONFIG = {
       obstacleSprite: 'banana', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
       chapterDesc: "不是每一天都有煙火和遠方，是有你的晚餐、沙發和廢片，很幸福。",
-      message: "最珍貴的，不是特別的一天，是每一天都有你。",
+      message: "最珍貴的，不是特別的一天，是每一天有你。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo3.jpg"
       photo: "🏠",
       
       // === 遊戲進行中浮現的回憶文字 ===
       storyMilestones: [
-        { itemTarget: 2, text: "後來我越來越喜歡那些看起來沒什麼的大日子。" },
+        { itemTarget: 2, text: "後來我越來越喜歡那些看起來沒什麼的小日子。" },
         { itemTarget: 4, text: "像是一起窩在沙發上，什麼都不做，也覺得今天很好。" },
         { itemTarget: 6, text: "像是你煮飯，我在旁邊亂晃，最後還是吃得很開心。" },
         { itemTarget: 8, text: "原來真正想共度餘生的人，會出現在每一個回家以後的晚上。" },
@@ -1306,6 +1306,20 @@ btnMute.onclick = (e) => {
 
 // Start loop
 requestAnimationFrame(loop);
+
+// --- Dev Tools Easter Egg ---
+let devClickCount = 0;
+const titleEl = document.querySelector('#start-screen h1');
+if (titleEl) {
+  titleEl.addEventListener('click', (e) => {
+    e.stopPropagation();
+    devClickCount++;
+    if (devClickCount >= 5) {
+      document.getElementById('dev-menu').style.display = 'flex';
+      devClickCount = 0; // reset
+    }
+  });
+}
 
 // --- Dev Tools for Testing ---
 window.skipToLevel = function(levelIdx) {
