@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Happy Birthday!</title>
+    <meta name="description" content="給你的專屬生日驚喜，讓我們一起跑過那些珍貴的回憶！">
+    <title>專屬你的回憶跑酷 - 生日快樂！</title>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
   </head>
@@ -54,21 +55,26 @@
         <div id="chapter-screen" class="screen">
           <div id="chapter-intro-part">
             <h2 id="chapter-title">Chapter 1</h2>
+            
+            <!-- Location Indicator -->
+            <div id="chapter-location" style="display: flex; width: fit-content; margin: 0 auto 15px auto; justify-content: center; align-items: center; gap: 6px; color: #e74c3c; background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); font-size: 1.05rem; padding: 4px 14px; border-radius: 20px; font-weight: bold; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+              <!-- icon and text injected by JS -->
+            </div>
             <p id="chapter-desc" style="font-size: 1.1rem; margin: 0.5rem 0 1.5rem; line-height: 1.6;">接下來這一頁，是我們故事裡很重要的一段。</p>
             <button id="show-instruction-btn">查看任務</button>
           </div>
 
           <div id="chapter-instruction-part" style="display: none;">
-            <div class="tutorial-box" style="margin-bottom: 1.5rem; text-align: center; padding: 15px; line-height: 1.5; background: rgba(0,0,0,0.6); border-radius: 8px; border: 2px solid #555;">
-              <h3 style="color: #f1c40f; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 1px 1px 0px #000;">🕹️ 翻頁方式</h3>
-              <p id="jump-instruction" style="font-size: 0.95rem; color: #ffffff; margin-bottom: 0;">點擊螢幕 或 按空白鍵跳躍，繼續把這段回憶跑下去</p>
+            <div class="tutorial-box" style="margin-bottom: 1.5rem; text-align: center; padding: 15px; line-height: 1.5; background: rgba(30,30,30,0.85); border-radius: 12px; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+              <h3 style="color: #f1c40f; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 1px 1px 2px #000; white-space: nowrap; word-break: keep-all;">🕹️ 翻頁方式</h3>
+              <p id="jump-instruction" style="font-size: 0.95rem; color: #ffffff; margin-bottom: 0;">點擊螢幕 或 按空白鍵跳躍</p>
               
-              <h3 style="color: #f1c40f; margin-top: 15px; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 1px 1px 0px #000;">🎯 這一章要收集的片段 (<span id="chapter-item-count">5</span>個)</h3>
+              <h3 style="color: #f1c40f; margin-top: 15px; margin-bottom: 12px; font-size: 1.1rem; text-shadow: 1px 1px 2px #000; white-space: nowrap; word-break: keep-all;">任務：收集 <span id="chapter-item-count" style="color: #fff; font-size: 1.2rem; margin: 0 4px;">12</span> 個記憶</h3>
               <div id="chapter-items" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 5px;">
                 <!-- Dynamic items -->
               </div>
               
-              <h3 style="color: #ff6b6b; margin-top: 15px; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 2px 2px 0px #000;">⚠️ 小心別被插曲打亂節奏</h3>
+              <h3 style="color: #ff6b6b; margin-top: 15px; margin-bottom: 8px; font-size: 1.1rem; text-shadow: 2px 2px 0px #000;">小心別被插曲打亂節奏</h3>
               <div style="display: flex; justify-content: center; align-items: center; gap: 30px;">
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
                   <div id="chapter-obstacle"></div>
@@ -99,7 +105,7 @@
 
         <!-- Final Birthday Screen -->
         <div id="final-screen" class="screen">
-          <h1>Final Chapter｜生日快樂</h1>
+          <h1>Final Chapter<br>生日快樂</h1>
           <div class="cake-container">
             <img id="cake-img" src="./pixel_cake.png" alt="Birthday Cake">
             <p id="blow-hint">狂點螢幕吹熄蠟燭！ (<span id="blow-progress">0</span>/20)</p>

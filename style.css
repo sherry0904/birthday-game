@@ -72,6 +72,8 @@ canvas {
   text-align: center;
   max-width: 90%;
   width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
   display: none;
   pointer-events: auto; /* Catch clicks on the screen */
 }

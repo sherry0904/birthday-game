@@ -282,10 +282,44 @@ const SPRITES = {
   ],
   controller: [
     "................",
-    "..RRRRRRRR......",
-    ".R.W.RR.B.R.....",
-    ".R...RR...R.....",
-    "..RRRRRRRR......"
+    "..BBDDDDRR......",
+    ".B.W.DD.W.R.....",
+    ".B...DD...R.....",
+    "..BBDDDDRR......"
+  ],
+  loc_pin: [
+    "..RRRRR..",
+    ".RRWRRRR.",
+    ".RRRRRRR.",
+    ".RRRRRRR.",
+    "..RRRRR..",
+    "...RRR...",
+    "....R...."
+  ],
+  loc_kaohsiung: [
+    ".......YY.......",
+    ".......DD.......",
+    "......D..D......",
+    "......DDDD......",
+    "......DDDD......",
+    ".....DDDDDD....."
+  ],
+  loc_alishan: [
+    ".......W........",
+    "......WWW.......",
+    ".....GGGGG......",
+    "....GGGGGGG.....",
+    "...GGGGGGGGG....",
+    "..GGGGGGGGGGG..."
+  ],
+  loc_home: [
+    ".......RR.......",
+    "......RRRR......",
+    ".....RRRRRR.....",
+    "....RRRRRRRR....",
+    "......WWWW......",
+    "......WBBW......",
+    "......WWWW......"
   ],
   pan: [
     "................",
@@ -366,6 +400,8 @@ const CONFIG = {
     {
       id: 1,
       title: "Chapter 1\n心動是從一時衝動開始的",
+      locationText: "高雄國慶",
+      locationSprite: "loc_kaohsiung",
       bgType: 'night',
       itemSprites: ['firework', 'heart'],
       itemCount: 12, // 遊戲過關所需的寶物數量
@@ -394,7 +430,9 @@ const CONFIG = {
     },
     {
       id: 2,
-      title: "Chapter 2\n有你在，\n路遠一點也沒關係",
+      title: "Chapter 2\n有你在\n路遠一點也沒關係",
+      locationText: "阿里山",
+      locationSprite: "loc_alishan",
       bgType: 'forest',
       itemSprites: ['camera', 'suitcase'],
       itemCount: 12, // 遊戲過關所需的寶物數量
@@ -418,7 +456,9 @@ const CONFIG = {
     },
     {
       id: 3,
-      title: "Chapter 3\n後來最喜歡的，是我們的日常",
+      title: "Chapter 3\n後來最喜歡的\n是我們的日常",
+      locationText: "家",
+      locationSprite: "loc_home",
       bgType: 'home',
       itemSprites: ['controller', 'pan'],
       itemCount: 12, // 遊戲過關所需的寶物數量
@@ -426,7 +466,7 @@ const CONFIG = {
       spawnRate: 25, // 東西出現變得最密集
       obstacleSprite: 'banana', // 這關的危險障礙物圖案
       // === 每一關的破關照片與文字設定 ===
-      chapterDesc: "不是每一天都有煙火和遠方，但有你的晚餐、沙發和廢片，就已經很幸福了。",
+      chapterDesc: "不是每一天都有煙火和遠方，是有你的晚餐、沙發和廢片，很幸福。",
       message: "最珍貴的，不是特別的一天，是每一天都有你。",
       photoSrc: "", // 👉 【放入您的照片】：填入檔名，例如 "./photo3.jpg"
       photo: "🏠",
@@ -993,16 +1033,30 @@ function renderSpriteToCanvas(spriteKey, scale = 4) {
   const canvas = document.createElement('canvas');
   const spriteData = SPRITES[spriteKey];
   if (!spriteData) return canvas;
-  canvas.width = spriteData[0].length * scale;
-  canvas.height = spriteData.length * scale;
-  const ctx = canvas.getContext('2d');
   
+  let minC = 99, maxC = -1, minR = 99, maxR = -1;
   for (let r = 0; r < spriteData.length; r++) {
     for (let c = 0; c < spriteData[r].length; c++) {
+      if (spriteData[r][c] !== '.') {
+        if (c < minC) minC = c;
+        if (c > maxC) maxC = c;
+        if (r < minR) minR = r;
+        if (r > maxR) maxR = r;
+      }
+    }
+  }
+  if (maxC === -1) { minC = 0; maxC = spriteData[0].length - 1; minR = 0; maxR = spriteData.length - 1; }
+
+  canvas.width = (maxC - minC + 1) * scale;
+  canvas.height = (maxR - minR + 1) * scale;
+  const ctx = canvas.getContext('2d');
+  
+  for (let r = minR; r <= maxR; r++) {
+    for (let c = minC; c <= maxC; c++) {
       const char = spriteData[r][c];
-      if (PALETTE[char]) {
+      if (char !== '.' && PALETTE[char]) {
         ctx.fillStyle = PALETTE[char];
-        ctx.fillRect(c * scale, r * scale, scale, scale);
+        ctx.fillRect((c - minC) * scale, (r - minR) * scale, scale, scale);
       }
     }
   }
@@ -1018,7 +1072,7 @@ function showChapterScreen() {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const jumpInstruction = document.getElementById('jump-instruction');
   if (jumpInstruction) {
-    jumpInstruction.innerText = isMobile ? "「點擊螢幕跳躍」\n繼續把這段回憶跑下去" : "點擊螢幕 或 按空白鍵跳躍，繼續把這段回憶跑下去";
+    jumpInstruction.innerText = isMobile ? "「點擊螢幕」跳躍" : "點擊螢幕 或 按空白鍵跳躍";
   }
 
   const levelConf = CONFIG.levelConfigs[currentLevelIndex];
@@ -1026,21 +1080,76 @@ function showChapterScreen() {
   document.getElementById('chapter-desc').innerText = levelConf.chapterDesc;
   document.getElementById('chapter-item-count').innerText = levelConf.itemCount;
   
+  // Location
+  const locContainer = document.getElementById('chapter-location');
+  if (locContainer) {
+    locContainer.innerHTML = '';
+    if (levelConf.locationText) {
+      locContainer.style.display = 'flex';
+      const locCanvas = renderSpriteToCanvas('loc_pin', 2);
+      locCanvas.style.height = '18px';
+      locCanvas.style.width = 'auto';
+      locContainer.appendChild(locCanvas);
+      const locText = document.createElement('span');
+      locText.innerText = levelConf.locationText;
+      locContainer.appendChild(locText);
+    } else {
+      locContainer.style.display = 'none';
+    }
+  }
+  
+  const spriteLabels = {
+    'firework': '煙火', 'heart': '心動', 'camera': '相機', 'suitcase': '行李箱',
+    'controller': '遊戲手把', 'pan': '平底鍋', 'monster': '小怪物', 'fire': '營火',
+    'banana': '香蕉皮', 'cloud': '雲朵'
+  };
+
   const itemsContainer = document.getElementById('chapter-items');
   itemsContainer.innerHTML = '';
   levelConf.itemSprites.forEach(k => {
+    const wrapper = document.createElement('div');
+    wrapper.style.display = 'flex';
+    wrapper.style.flexDirection = 'column';
+    wrapper.style.alignItems = 'center';
+    wrapper.style.gap = '5px';
     const canvas = renderSpriteToCanvas(k, 3);
-    itemsContainer.appendChild(canvas);
+    canvas.style.height = '45px'; // Force consistent height
+    canvas.style.width = 'auto';
+    wrapper.appendChild(canvas);
+    const label = document.createElement('span');
+    label.innerText = spriteLabels[k] || k;
+    label.style.fontSize = '0.9rem';
+    label.style.color = '#fff';
+    wrapper.appendChild(label);
+    itemsContainer.appendChild(wrapper);
   });
   
   const obsContainer = document.getElementById('chapter-obstacle');
   obsContainer.innerHTML = '';
-  obsContainer.appendChild(renderSpriteToCanvas(levelConf.obstacleSprite, 3));
+  const obsCanvas = renderSpriteToCanvas(levelConf.obstacleSprite, 3);
+  obsCanvas.style.height = '45px'; // Consistent height
+  obsCanvas.style.width = 'auto';
+  obsContainer.appendChild(obsCanvas);
+  const obsLabel = document.createElement('div');
+  obsLabel.innerText = spriteLabels[levelConf.obstacleSprite] || levelConf.obstacleSprite;
+  obsLabel.style.fontSize = '0.9rem';
+  obsLabel.style.color = '#fff';
+  obsLabel.style.marginTop = '5px';
+  obsContainer.appendChild(obsLabel);
   
   const cloudContainer = document.getElementById('chapter-cloud');
   cloudContainer.innerHTML = '';
-  cloudContainer.appendChild(renderSpriteToCanvas('cloud', 3));
-  
+  const cloudCanvas = renderSpriteToCanvas('cloud', 3);
+  cloudCanvas.style.height = '45px'; // Consistent height
+  cloudCanvas.style.width = 'auto';
+  cloudContainer.appendChild(cloudCanvas);
+  const cloudLabel = document.createElement('div');
+  cloudLabel.innerText = spriteLabels['cloud'] || 'cloud';
+  cloudLabel.style.fontSize = '0.9rem';
+  cloudLabel.style.color = '#fff';
+  cloudLabel.style.marginTop = '5px';
+  cloudContainer.appendChild(cloudLabel);
+
   uiChapter.classList.add('active');
 }
 
